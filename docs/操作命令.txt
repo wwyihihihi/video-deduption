@@ -1,0 +1,22 @@
+1. 扫描重复视频，只查看结果
+video-dedup scan "E:\新建文件夹"
+详细日志及指定阈值：
+video-dedup --verbose scan "E:\新建文件夹" --threshold 0.85
+2. 生成报告，不修改视频
+video-dedup report "E:\新建文件夹" --format html --output "E:\项目\video-deduplication\report.html"
+video-dedup report "E:\新建文件夹" --format json --output "E:\项目\video-deduplication\report.json"
+3. 模拟删除，查看计划处理哪些文件
+video-dedup dedupe "E:\新建文件夹" --action delete --dry-run --format json --output "E:\项目\video-deduplication\preview.json"
+4. 实际移动重复视频
+建议将目标目录放在扫描目录之外：
+video-dedup dedupe "E:\新建文件夹" --action move --target "E:\重复视频" --no-dry-run --format json --output "E:\项目\video-deduplication\move-result.json"
+5. 实际删除重复视频
+此命令会删除已确认的冗余文件：
+video-dedup dedupe "E:\新建文件夹" --action delete --no-dry-run --format json --output "E:\项目\video-deduplication\delete-result.json"
+6. 查看配置、版本及帮助
+video-dedup config
+video-dedup version
+video-dedup --help
+video-dedup scan --help
+video-dedup dedupe --help
+默认阈值为 0.85，默认递归扫描；待确认文件不会被自动处理。实际操作必须同时指定 --action 和 --no-dry-run
